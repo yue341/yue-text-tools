@@ -29,8 +29,8 @@ METADATA
     {
       "name": "text_transform",
       "description": {
-        "zh": "对文本做大小写、去空白、反转等转换",
-        "en": "Transform text with upper, lower, trim, compact or reverse"
+        "zh": "对文本做大小写、去空白、反转、首字母大写等转换",
+        "en": "Transform text with upper, lower, trim, compact, reverse or capitalize"
       },
       "parameters": [
         {
@@ -45,8 +45,8 @@ METADATA
         {
           "name": "mode",
           "description": {
-            "zh": "转换模式：upper / lower / trim / compact / reverse",
-            "en": "Transform mode: upper, lower, trim, compact or reverse"
+            "zh": "转换模式：upper / lower / trim / compact / reverse / capitalize",
+            "en": "Transform mode: upper, lower, trim, compact, reverse or capitalize"
           },
           "type": "string",
           "required": false
@@ -71,7 +71,7 @@ type TextStatsResult = {
   lines: number;
 };
 
-type TransformMode = "upper" | "lower" | "trim" | "compact" | "reverse";
+type TransformMode = "upper" | "lower" | "trim" | "compact" | "reverse" | "capitalize";
 
 type TextTransformParams = {
   text?: string;
@@ -83,7 +83,7 @@ type TextTransformResult = {
   result: string;
 };
 
-const TRANSFORM_MODES: TransformMode[] = ["upper", "lower", "trim", "compact", "reverse"];
+const TRANSFORM_MODES: TransformMode[] = ["upper", "lower", "trim", "compact", "reverse", "capitalize"];
 
 const CJK_PATTERN = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/;
 
@@ -152,6 +152,7 @@ async function text_transform(params: TextTransformParams): Promise<void> {
     if (mode === "trim") result = text.trim();
     if (mode === "compact") result = text.replace(/\s+/g, "");
     if (mode === "reverse") result = Array.from(text).reverse().join("");
+    if (mode === "capitalize") result = text.charAt(0).toUpperCase() + text.slice(1);
 
     const data: TextTransformResult = { mode: mode, result: result };
 

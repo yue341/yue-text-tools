@@ -29,8 +29,8 @@ METADATA
     {
       "name": "text_transform",
       "description": {
-        "zh": "对文本做大小写、去空白、反转等转换",
-        "en": "Transform text with upper, lower, trim, compact or reverse"
+        "zh": "对文本做大小写、去空白、反转、首字母大写等转换",
+        "en": "Transform text with upper, lower, trim, compact, reverse or capitalize"
       },
       "parameters": [
         {
@@ -45,8 +45,8 @@ METADATA
         {
           "name": "mode",
           "description": {
-            "zh": "转换模式：upper / lower / trim / compact / reverse",
-            "en": "Transform mode: upper, lower, trim, compact or reverse"
+            "zh": "转换模式：upper / lower / trim / compact / reverse / capitalize",
+            "en": "Transform mode: upper, lower, trim, compact, reverse or capitalize"
           },
           "type": "string",
           "required": false
@@ -57,7 +57,7 @@ METADATA
 }
 */
 /// <reference path="../types/index.d.ts" />
-const TRANSFORM_MODES = ["upper", "lower", "trim", "compact", "reverse"];
+const TRANSFORM_MODES = ["upper", "lower", "trim", "compact", "reverse", "capitalize"];
 const CJK_PATTERN = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/;
 function isTransformMode(value) {
     return TRANSFORM_MODES.indexOf(value) !== -1;
@@ -122,6 +122,8 @@ async function text_transform(params) {
             result = text.replace(/\s+/g, "");
         if (mode === "reverse")
             result = Array.from(text).reverse().join("");
+        if (mode === "capitalize")
+            result = text.charAt(0).toUpperCase() + text.slice(1);
         const data = { mode: mode, result: result };
         complete({
             success: true,

@@ -47,6 +47,7 @@ async function main() {
     ["text_transform", { text: "  Hello  Yue  ", mode: "compact" }],
     ["text_transform", { text: "Operit Plugin", mode: "upper" }],
     ["text_transform", { text: "汀", mode: "reverse" }],
+    ["text_transform", { text: "operit plugin", mode: "capitalize" }],
     ["text_transform", { text: "abc", mode: "explode" }],
   ];
 
