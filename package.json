@@ -1,0 +1,14 @@
+{
+  "name": "yue-text-tools",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Operit AI 脚本包：文本统计与转换工具（TypeScript 版）",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "node test/run-local.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
